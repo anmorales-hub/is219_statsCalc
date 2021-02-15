@@ -7,8 +7,10 @@ class Calculator {
     static Sum(a,b) {
         //create new object, good for data + actions
           let calculation = new Calculation(a,b,Sum);
-          Calculator,Calculations.push(calculation);
+          Calculator.Calculations.push(calculation);
         return calculation.GetResults();
     }
 
 }
+
+module.exports = Calculator;
