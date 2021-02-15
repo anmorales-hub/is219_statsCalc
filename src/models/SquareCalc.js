@@ -1,4 +1,4 @@
-class Calculation {
+class SquareCalc {
     //constructor is the first method called after instantiaion and usually sets object properties
     constructor(a,op) {
         //"this" is interal reference of the object to access internal methods and properties
