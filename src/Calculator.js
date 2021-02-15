@@ -1,6 +1,8 @@
-const Calculation = require('.models/Calculation');
+const Calculation = require('./models/Calculation');
 const Sum = require('./Operations/addition');
-const Difference = require('../Operations/subtraction');
+const Difference = require('./Operations/subtraction');
+const Product = require('./Operations/product');
+const Quotient = require('./Operations/divide');
 
 class Calculator {
     static Calculations = []
@@ -14,11 +16,24 @@ class Calculator {
 
     static Difference(a,b) {
         //create new object, good for data + actions
-        let calculation = new Calculation(a,b,Difference);
+        let calculation = new Calculation(a,b, Difference);
         Calculator.Calculations.push(calculation);
         return calculation.GetResults();
     }
 
+    static Product(a,b) {
+        //create new object, good for data + actions
+        let calculation = new Calculation(a,b,Product);
+        Calculator.Calculations.push(calculation);
+        return calculation.GetResults();
+    }
+
+    static Quotient(a,b) {
+        //create new object, good for data + actions
+        let calculation = new Calculation(a,b,Quotient);
+        Calculator.Calculations.push(calculation);
+        return calculation.GetResults();
+    }
 }
 
 module.exports = Calculator;
