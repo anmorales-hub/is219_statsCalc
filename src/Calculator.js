@@ -1,5 +1,6 @@
 const Calculation = require('.models/Calculation');
-const Sum = require('./Operations/Addition')
+const Sum = require('./Operations/addition');
+const Difference = require('../Operations/subtraction');
 
 class Calculator {
     static Calculations = []
