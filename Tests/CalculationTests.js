@@ -1,4 +1,5 @@
 const Calculation = require('../src/models/Calculation');
+const SquareCalc = require('../src/models/SquareCalc');
 const Sum = require('../src/Operations/addition');
 const Difference = require('../src/Operations/subtraction');
 const Product = require('../src/Operations/product');
