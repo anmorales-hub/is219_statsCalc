@@ -35,3 +35,9 @@ test('Calculator squaring a number',() => {
     expect(result).toBe(64);
 });
 
+test('Calculator finding the square root a number',() => {
+    //assign results of calc Square method to an object, calc returns an object
+    let result = Calculator.SquareRoot(64);
+    //'expect' used to test result correctness
+    expect(result).toBe(8);
+});
