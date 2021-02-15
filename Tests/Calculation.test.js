@@ -1,11 +1,10 @@
 const Calculation = require('../src/models/Calculation');
-const SquareCalc = require('../src/models/SquareCalc');
 const Sum = require('../src/Operations/addition');
 const Difference = require('../src/Operations/subtraction');
 const Product = require('../src/Operations/product');
 const Quotient = require('../src/Operations/divide');
-const Square = require('../src/Operations/square');
-const SquareRoot = require('../src/Operations/squareRoot');
+const Power = require('../src/Operations/power');
+const Root = require('../src/Operations/root');
 
 test('Test of Calculation Instantiation', () =>{
     //Test instantiation of calc object
@@ -46,14 +45,14 @@ test('Test get results for Quotient function',() => {
 
 test('Test get results for Square function',() => {
     //test get results func vv
-    let op = Square;
-    let calculation = new Calculation(8 ,op);
+    let op = Power;
+    let calculation = new Calculation(8 ,2,op);
     expect(calculation.GetResults()).toBe(64);
 });
 
-test('Test get results for SquareRoot function',() => {
+test('Test get results for Root function',() => {
     //test get results func vv
-    let op = SquareRoot;
-    let calculation = new Calculation(64 ,op);
+    let op = Root;
+    let calculation = new Calculation(64 ,2,op);
     expect(calculation.GetResults()).toBe(8);
 });

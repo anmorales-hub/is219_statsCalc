@@ -1,11 +1,10 @@
 const Calculation = require('./models/Calculation');
-const SquareCalc = require('./models/SquareCalc')
 const Sum = require('./Operations/addition');
 const Difference = require('./Operations/subtraction');
 const Product = require('./Operations/product');
 const Quotient = require('./Operations/divide');
-const Square = require('./Operations/square');
-const SquareRoot = require('./Operations/squareRoot');
+const Power = require('./Operations/power');
+const Root = require('./Operations/root');
 
 class Calculator {
     static Calculations = []
@@ -38,16 +37,16 @@ class Calculator {
         return calculation.GetResults();
     }
 
-    static Square(a) {
+    static Power(a,b) {
         //create new object, good for data + actions
-        let calculation = new Calculation(a,Square);
+        let calculation = new Calculation(a,b,Power);
         Calculator.Calculations.push(calculation);
         return calculation.GetResults();
     }
 
-    static SquareRoot(a) {
+    static Root(a,b) {
         //create new object, good for data + actions
-        let calculation = new Calculation(a,SquareRoot);
+        let calculation = new Calculation(a,b,Root);
         Calculator.Calculations.push(calculation);
         return calculation.GetResults();
     }

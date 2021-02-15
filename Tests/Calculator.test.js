@@ -30,14 +30,14 @@ test('Calculator dividing 2 numbers',() => {
 
 test('Calculator squaring a number',() => {
     //assign results of calc Square method to an object, calc returns an object
-    let result = Calculator.Square(8);
+    let result = Calculator.Power(8,2);
     //'expect' used to test result correctness
     expect(result).toBe(64);
 });
 
 test('Calculator finding the square root a number',() => {
     //assign results of calc Square method to an object, calc returns an object
-    let result = Calculator.SquareRoot(64);
+    let result = Calculator.Root(64,2);
     //'expect' used to test result correctness
     expect(result).toBe(8);
 });
