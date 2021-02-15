@@ -12,6 +12,13 @@ class Calculator {
         return calculation.GetResults();
     }
 
+    static Difference(a,b) {
+        //create new object, good for data + actions
+        let calculation = new Calculation(a,b,Difference);
+        Calculator.Calculations.push(calculation);
+        return calculation.GetResults();
+    }
+
 }
 
 module.exports = Calculator;
