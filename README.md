@@ -14,11 +14,13 @@ Inheritance is the third object-oriented programming principle. Inheritance allo
       sum(){
       . . . .
   }
-} ```
+} 
+```
 
 ```class StatsCalc extends Calculator{
       . . . .
-} ```
+} 
+```
 
 In this example, the new class 'StatsCalc' takes on the properties of the 'Calculator' class. In this case, it would inherit the sum function, as well as any other data that might be encapsulated within the Calculator class.
 
