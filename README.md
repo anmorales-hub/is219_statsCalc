@@ -82,4 +82,8 @@ module.exports = Addition;
 Note how it has absoolutely no fluff or anything that isn't needed. It contains the straightforward addition function and a line of code to export that function; nothing more and nothing less.
 
 ## D - Dependency Inversion Principle
-This principle states that
+This principle states that higher level modules should be reusable and unaffected by lower level modules while both should depend on abstractions. Take a look at the following code: 
+``` 
+let calculation = new Calculation.Create(a,b,Sum);
+```
+In this code, the create method uses the Sum method as a parameter can be changed to any other operation (subtraction, product, etc.) without having to change the initial method.
