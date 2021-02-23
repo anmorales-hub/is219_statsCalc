@@ -30,3 +30,56 @@ In this example, the new class 'StatsCalc' takes on the properties of the 'Calcu
 Polymorphism is the last of the object-oriented programming principles. Imagine telling a dog, a spider, and a human to walk. Each of these creatures have a different number of legs, and as a result, they walk in different ways. Despite these differences, each creature can carry out the common task of walking, using different methods to do so. This is essentially polymorphism. Although each function would perform the same task, they have different ways of doing so. This becomes more applicable when you consider data types; an addition function will likely work differently when given an input of 2 integers as opposed to an input of 2 floats. Polymorphism would help work around this issue while acheieving the same goal.
 
 *** 
+# S.O.L.I.D 
+## S - Single Responsibility Principle
+As the name implies, this principle involves making sure that each function does only a single task. With eah function having a single task, this makes it easy to read, navigate, and debug potentially complex code. One example of the Single Responsibility Principle in the calculator code is seen here:
+```
+function Addition (a,b) {
+    return a + b;
+}
+```
+In this function, anyone can tell just by the name that it is meant to *add* two numbers together. Giving the function a single task in addition to giving it a name that indicates exactly what it's supposed to do would help make code very easily navigable.
+
+## O - Open-Closed Principle
+This principle states that JS modules should be closed to modification, but open to extension. This means that you shouldn't have to manually change code. Here is an example in terms of the calculator program:
+```
+class Calculator {
+    static Calculations = [];
+    static addCalculation(calculation){
+        Calculator.Calculations.push(calculation);
+    }
+    static clearList(){
+        this.Calculations = [];
+    }
+}
+```
+The Open-Closed Princicple is seen here in the clearList function. Rather than having to open the code and manually clear the list of calculations, the code has been *extended* with the clearList function which accomplishes that task while avoiding the need to modify pre-existing code. 
+
+## L - Liskov Substitution Principle
+The Liskov Substitution Principle basically ensures that a parent and a child class can be used interchangably without errors. View this example from the Calculator program:
+```
+static Sum(a,b) {
+      return a + b;
+}
+```
+```
+static Sum(a,b) {
+          let calculation = new Calculation(a,b,Sum);
+          Calculator.Calculations.push(calculation);
+        return calculation.GetResults();
+    }
+ ```
+ If the first chunk of code were inherited by a class with the second chunk of code, the two would be able to be used interchangibly. While the child pushes a sum into a list of calculations, the parent adds the numbers without the second step. Regardless, using either sum function would not result in an error.
+ 
+ ## I - Interface Segregation
+ As the name implies, interface segregation means segregating interfaces (of course). Basically, this principle states that if a program doesn't need an interface, it shouldn't have it. It's important to keep your code simple and avoid anything that might be unnecessary or inconvenient. Look at the following code:
+ ```
+function Addition (a,b) {
+    return a + b;
+}
+module.exports = Addition;
+```
+Note how it has absoolutely no fluff or anything that isn't needed. It contains the straightforward addition function and a line of code to export that function; nothing more and nothing less.
+
+## D - Dependency Inversion Principle
+This principle states that
