@@ -87,3 +87,57 @@ This principle states that higher level modules should be reusable and unaffecte
 let calculation = new Calculation.Create(a,b,Sum);
 ```
 In this code, the create method uses the Sum method as a parameter can be changed to any other operation (subtraction, product, etc.) without having to change the initial method.
+
+*** 
+# Design Patterns
+Design patterns are solutions to common problems in software design, acting as sort of blueprints that can solve a recurring problem in code. Unlike UI libraries like Bootstrap, design patterns are more concept-based, meaning you can't just copy and paste a design pattern into your own program. There are 3 types of design patterns: **creational patterns**, which provde object creation mechanisms that increase flexibility and reusability of code, **structural patterns** which assemble classes into large, flexible, and efficient structures, and **behavioral patterns** which optimize communication between objects.
+
+## Creational Pattern - Singleton
+Singleton is a creational design patten that is used to create a single, globally accessible instance of a class. This is beneficial for the calculator program since it ensures that no other instances will overwrite or interefere with the existing Calculator class. Since we would eventually be storing all our calculation results in a single Calculator instance, this is important in making sure that our data is not scattered across multiple calculators. In addition, its global accessibility would make it easily referenced from anywhere in the program. To implement a Singleton, the user would have to create a 'getInstance' method that stores the an object and returns it in subsequent calls. Below is a pseudocode of a Singleton implementation:
+```
+// The Database class defines the `getInstance` method that lets
+// clients access the same instance of a database connection
+// throughout the program.
+class Database is
+    // The field for storing the singleton instance should be
+    // declared static.
+    private static field instance: Database
+
+    // The singleton's constructor should always be private to
+    // prevent direct construction calls with the `new`
+    // operator.
+    private constructor Database() is
+        // Some initialization code, such as the actual
+        // connection to a database server.
+        // ...
+
+    // The static method that controls access to the singleton
+    // instance.
+    public static method getInstance() is
+        if (Database.instance == null) then
+            acquireThreadLock() and then
+                // Ensure that the instance hasn't yet been
+                // initialized by another thread while this one
+                // has been waiting for the lock's release.
+                if (Database.instance == null) then
+                    Database.instance = new Database()
+        return Database.instance
+
+    // Finally, any singleton should define some business logic
+    // which can be executed on its instance.
+    public method query(sql) is
+        // For instance, all database queries of an app go
+        // through this method. Therefore, you can place
+        // throttling or caching logic here.
+        // ...
+
+class Application is
+    method main() is
+        Database foo = Database.getInstance()
+        foo.query("SELECT ...")
+        // ...
+        Database bar = Database.getInstance()
+        bar.query("SELECT ...")
+        // The variable `bar` will contain the same object as
+        // the variable `foo`.
+```
