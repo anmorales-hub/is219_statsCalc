@@ -203,7 +203,26 @@ const reportProduct = registry.registerComplaint('Jane', 'product', 'faded color
 // 'Complaint No. 2 reported by Jane regarding faded color have been filed with the Products Complaint Department. Replacement/Repairment of the product as per terms and conditions will be carried out soon.'
 ```
 Note how even though there are many methods and classes, they all stem from the 'ComplaintRegistry' class which is what the user would be dealing with. 
-[comment]: <> calc example coming eventually
+
+Here is a crude example of a Facade in the Calculator program:
+```
+class Calculation {
+    //constructor is the first method called after instantiaion and usually sets object properties
+    constructor(a,b,op) {
+        //"this" is interal reference of the object to access internal methods and properties
+        this.a = a;
+        this.b = b;
+        this.op = op;
+    }
+    //getresults method returns results of calculation
+    GetResults() {
+        return this.op(this.a,this.b);
+    }
+}
+
+module.exports = Calculation;
+```
+This code simplifies the math operation process. Rather than providing steps that are potentially irrelevant to the user, this code takes two numbers and an operation, executes it, and obtains the results of the calculation. It's simple and does not go into detail about any potentally complex code that happens behind the scenes.
 
 ## Behavioral Pattern - Strategy
 Strategy is a pattern that lets you define a family of algorithms into a separate class while making their objects interchangable. One notable example in the Calculator program is the use of the Calculation class:
