@@ -241,4 +241,4 @@ class Calculation {
     }
 }
 ```
-In this example, the Calculation class can take in any operation that takes 2 parameters, or numbers in this case. The Calculation class groups together the use of an operation, as well as a function to return the result. 
+In this example, the Calculation class groups together the use of an operation, as well as a function to return the result. 
