@@ -90,54 +90,119 @@ In this code, the create method uses the Sum method as a parameter can be change
 
 *** 
 # Design Patterns
-Design patterns are solutions to common problems in software design, acting as sort of blueprints that can solve a recurring problem in code. Unlike UI libraries like Bootstrap, design patterns are more concept-based, meaning you can't just copy and paste a design pattern into your own program. There are 3 types of design patterns: **creational patterns**, which provde object creation mechanisms that increase flexibility and reusability of code, **structural patterns** which assemble classes into large, flexible, and efficient structures, and **behavioral patterns** which optimize communication between objects.
+Design patterns are solutions to common problems in software design, acting as sort of blueprints that can solve a recurring problem in code. Unlike UI libraries like Bootstrap, design patterns are more concept-based, meaning you can't just copy and paste a design pattern into your own program. There are 3 types of design patterns: **creational patterns**, which provde object creation mechanisms that increase flexibility and reusability of code, **structural patterns** which essentially help obtain new functionalities without messing with existing ones, and **behavioral patterns** which optimize communication between objects.
 
 ## Creational Pattern - Singleton
-Singleton is a creational design patten that is used to create a single, globally accessible instance of a class. This is beneficial for the calculator program since it ensures that no other instances will overwrite or interefere with the existing Calculator class. Since we would eventually be storing all our calculation results in a single Calculator instance, this is important in making sure that our data is not scattered across multiple calculators. In addition, its global accessibility would make it easily referenced from anywhere in the program. To implement a Singleton, the user would have to create a 'getInstance' method that stores the an object and returns it in subsequent calls. Below is a pseudocode of a Singleton implementation:
+Singleton is a creational design patten that is used to create a single, globally accessible instance of a class. This is beneficial for the calculator program since it ensures that no other instances will overwrite or interefere with the existing Calculator class. Since we would eventually be storing all our calculation results in a single Calculator instance, this is important in making sure that our data is not scattered across multiple calculators. In addition, its global accessibility would make it easily referenced from anywhere in the program. To implement a Singleton, the user would have to create a 'getInstance' method that stores the an object and returns it in subsequent calls. Below is an example of a Singleton implementation:
 ```
-// The Database class defines the `getInstance` method that lets
-// clients access the same instance of a database connection
-// throughout the program.
-class Database is
-    // The field for storing the singleton instance should be
-    // declared static.
-    private static field instance: Database
+class Database {
+  constructor(data) {
+    if (Database.exists) {
+      return Database.instance;
+    }
+    this._data = data;
+    Database.instance = this;
+    Database.exists = true;
+    return this;
+  }
 
-    // The singleton's constructor should always be private to
-    // prevent direct construction calls with the `new`
-    // operator.
-    private constructor Database() is
-        // Some initialization code, such as the actual
-        // connection to a database server.
-        // ...
+  getData() {
+    return this._data;
+  }
 
-    // The static method that controls access to the singleton
-    // instance.
-    public static method getInstance() is
-        if (Database.instance == null) then
-            acquireThreadLock() and then
-                // Ensure that the instance hasn't yet been
-                // initialized by another thread while this one
-                // has been waiting for the lock's release.
-                if (Database.instance == null) then
-                    Database.instance = new Database()
-        return Database.instance
+  setData(data) {
+    this._data = data;
+  }
+}
 
-    // Finally, any singleton should define some business logic
-    // which can be executed on its instance.
-    public method query(sql) is
-        // For instance, all database queries of an app go
-        // through this method. Therefore, you can place
-        // throttling or caching logic here.
-        // ...
+// usage
+const mongo = new Database('mongo');
+console.log(mongo.getData()); // mongo
 
-class Application is
-    method main() is
-        Database foo = Database.getInstance()
-        foo.query("SELECT ...")
-        // ...
-        Database bar = Database.getInstance()
-        bar.query("SELECT ...")
-        // The variable `bar` will contain the same object as
-        // the variable `foo`.
+const mysql = new Database('mysql');
+console.log(mysql.getData()); // mongo
 ```
+## Structural Pattern - Facade
+The Facade pattern involves creating a simplified public interface that hides a program's complexities from the user. In a sense, this can be boiled down to the implementation of abstraction. In terms of the Calculator program, a facade would be useful in simplifying the math process for the user. They would only be interested in providing input and receiving output; anything in between those outcomes is not something the user is concerned or worried about.  Below is a code example of a facade:
+```
+let currentId = 0;
+
+class ComplaintRegistry {
+  registerComplaint(customer, type, details) {
+    const id = ComplaintRegistry._uniqueIdGenerator();
+    let registry;
+    if (type === 'service') {
+      registry = new ServiceComplaints();
+    } else {
+      registry = new ProductComplaints();
+    }
+    return registry.addComplaint({ id, customer, details });
+  }
+
+  static _uniqueIdGenerator() {
+    return ++currentId;
+  }
+}
+
+class Complaints {
+  constructor() {
+    this.complaints = [];
+  }
+
+  addComplaint(complaint) {
+    this.complaints.push(complaint);
+    return this.replyMessage(complaint);
+  }
+
+  getComplaint(id) {
+    return this.complaints.find(complaint => complaint.id === id);
+  }
+
+  replyMessage(complaint) {}
+}
+
+class ProductComplaints extends Complaints {
+  constructor() {
+    super();
+    if (ProductComplaints.exists) {
+      return ProductComplaints.instance;
+    }
+    ProductComplaints.instance = this;
+    ProductComplaints.exists = true;
+    return this;
+  }
+
+  replyMessage({ id, customer, details }) {
+    return `Complaint No. ${id} reported by ${customer} regarding ${details} have been filed with the Products Complaint Department. Replacement/Repairment of the product as per terms and conditions will be carried out soon.`;
+  }
+}
+
+class ServiceComplaints extends Complaints {
+  constructor() {
+    super();
+    if (ServiceComplaints.exists) {
+      return ServiceComplaints.instance;
+    }
+    ServiceComplaints.instance = this;
+    ServiceComplaints.exists = true;
+    return this;
+  }
+
+  replyMessage({ id, customer, details }) {
+    return `Complaint No. ${id} reported by ${customer} regarding ${details} have been filed with the Service Complaint Department. The issue will be resolved or the purchase will be refunded as per terms and conditions.`;
+  }
+}
+
+// usage
+const registry = new ComplaintRegistry();
+
+const reportService = registry.registerComplaint('Martha', 'service', 'availability');
+// 'Complaint No. 1 reported by Martha regarding availability have been filed with the Service Complaint Department. The issue will be resolved or the purchase will be refunded as per terms and conditions.'
+
+const reportProduct = registry.registerComplaint('Jane', 'product', 'faded color');
+// 'Complaint No. 2 reported by Jane regarding faded color have been filed with the Products Complaint Department. Replacement/Repairment of the product as per terms and conditions will be carried out soon.'
+```
+Note how even though there are many methods and classes, they all stem from the 'ComplaintRegistry' class which is what the user would be dealing with. 
+[comment]: <> calc example coming eventually
+
+## Behavioral Pattern - 
