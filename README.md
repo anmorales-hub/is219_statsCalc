@@ -205,4 +205,21 @@ const reportProduct = registry.registerComplaint('Jane', 'product', 'faded color
 Note how even though there are many methods and classes, they all stem from the 'ComplaintRegistry' class which is what the user would be dealing with. 
 [comment]: <> calc example coming eventually
 
-## Behavioral Pattern - 
+## Behavioral Pattern - Strategy
+Strategy is a pattern that lets you define a family of algorithms into a separate class while making their objects interchangable. One notable example in the Calculator program is the use of the Calculation class:
+```
+class Calculation {
+    //constructor is the first method called after instantiaion and usually sets object properties
+    constructor(a,b,op) {
+        //"this" is interal reference of the object to access internal methods and properties
+        this.a = a;
+        this.b = b;
+        this.op = op;
+    }
+    //getresults method returns results of calculation
+    GetResults() {
+        return this.op(this.a,this.b);
+    }
+}
+```
+In this example, the Calculation class can take in any operation that takes 2 parameters, or numbers in this case. The Calculation class groups together the use of an operation, as well as a function to return the result. 
