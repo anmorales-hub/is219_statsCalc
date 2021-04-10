@@ -1,5 +1,5 @@
 const Math = require("mathjs");
-const Difference = require("../Difference");
+const Difference = require("../subtraction");
 
 function MeanAbsoluteDeviation(values) {
     let mean = Math.mean(values);
