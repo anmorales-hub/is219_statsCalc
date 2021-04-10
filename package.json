@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "coveralls": "^3.1.0",
-    "jest": "^25.5.4"
+    "jest": "^25.5.4",
+    "mathjs": "^9.3.0"
   }
 }
